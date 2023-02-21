@@ -34,6 +34,7 @@ end
 end
 
 @get "/" function (req::HTTP.Request)
+    dump(req)
     HTTP.Response(200, ["Content-Type" => "text/html"]; body="""
     <html>
     <head>
@@ -82,8 +83,9 @@ function getLocation() {
 }
 
 function showPosition(position) {
-    x.innerHTML="Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude;  
+    href = "/" + position.coords.latitude + "/" + position.coords.longitude
+    s = `<a href=\"\${href}">BINGBONG</a>`
+    x.innerHTML=s;
 }
 </script>
 
