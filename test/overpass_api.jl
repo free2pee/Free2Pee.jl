@@ -50,6 +50,48 @@ end
     """)
 end
 
+@get "/loc" function (req::HTTP.Request)
+    HTTP.Response(200, ["Content-Type" => "text/html"]; body="""
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo">Click the button to get your coordinates:</p>
+
+<button onclick="getLocation()">Try It</button>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            // Success function
+            showPosition, 
+            // Error function
+            null, 
+            // Options. See MDN for details.
+            {
+               enableHighAccuracy: true,
+               timeout: 5000,
+               maximumAge: 0
+            });
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    x.innerHTML="Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;  
+}
+</script>
+
+</body>
+</html>
+    """)
+end
+
 # CORS headers that show what kinds of complex requests are allowed to API
 headers = [
     "Access-Control-Allow-Origin" => "*",
@@ -69,7 +111,8 @@ function CorsHandler(handle)
 end
 
     # start the web server
-serve(host="0.0.0.0", middleware=[CorsHandler])
+# serve(host="0.0.0.0", middleware=[CorsHandler])
+serve(;middleware=[CorsHandler])
 
     # serve(;host="10.0.0.224")
 # serve(;port=8080)
