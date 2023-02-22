@@ -104,6 +104,6 @@ function generate_google_api_url(origin_lat, origin_long, dest_lat, dest_long)
     URI(MAPS_URI; query=Dict("api" => 1, "origin" => "$origin_lat,$origin_long", "destination" => "$dest_lat,$dest_long", "dir_action" => "navigate", "travelmode" => "walking"))
 end
 
-export get_site, get_json
+export get_site, get_json, to_df
 
 end # module Free2Pee
