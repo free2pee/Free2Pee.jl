@@ -13,8 +13,8 @@ example_query = "https://www.google.com/maps/dir/?api=1&origin=<lat, long>&desti
     lat = parse(Float64, lat)
     lon = parse(Float64, lon)
     df = to_df(lat, lon)
-    view_df = df[:, [:id, :distance, :lat, :lon, :maps_url]]
-    sort!(view_df, :distance)
+    view_df = df[:, [:id, :distance, :time_distance, :lat, :lon, :maps_url]]
+    sort!(view_df, :time_distance)
     io = IOBuffer()
     pretty_table(io, view_df, nosubheader=true, backend=Val(:html))
     

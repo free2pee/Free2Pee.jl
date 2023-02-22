@@ -48,3 +48,4 @@ route_url = "http://router.project-osrm.org/table/v1/foot/-71.105650,42.363740;-
 response = HTTP.post(route_url)
 j = JSON3.read(response.body)
 j.durations[1][2] #this is the time (in seconds) it takes to go from the first lat/long pair to the second lat/long pair
+
