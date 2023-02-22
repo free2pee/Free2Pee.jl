@@ -75,6 +75,21 @@ function gen_query(lat, lon; radius=1000)
     """
 end
 
+
+function walking_time_distance(ps, lat_lon)
+    lat = lat_lon[1]
+    lon = lat_lon[2]
+    route_url = "http://router.project-osrm.org/table/v1/foot/$lon,$lat"
+    for p in ps
+        lat_dest = p[1]
+        lon_dest = p[2]
+        route_url = route_url*";$lon_dest,$lat_dest"
+    end
+    response = HTTP.post(route_url)
+    j = JSON3.read(response.body)
+    return j.durations[1][2:end]
+end
+
 function to_df(lat, lon; radius=1000)
     query = gen_query(lat, lon; radius)
     response = HTTP.post(OVERPASS_URL, nothing, query)
@@ -84,9 +99,11 @@ function to_df(lat, lon; radius=1000)
 
     ps = lat_long_pair.(es)
     distances = haversine.(ps, ((lat, lon),))
+    time_distances = walking_time_distance(ps, (lat,lon))
     # sorted_ns = es[sortperm(distances)]
     df = DataFrame(es)
     df.distance = sort(distances)
+    df.time_distance = time_distances
     urls = map(x -> generate_google_api_url(lat, lon, x...), ps)
     df.maps_url = urls
     df
@@ -104,6 +121,6 @@ function generate_google_api_url(origin_lat, origin_long, dest_lat, dest_long)
     URI(MAPS_URI; query=Dict("api" => 1, "origin" => "$origin_lat,$origin_long", "destination" => "$dest_lat,$dest_long", "dir_action" => "navigate", "travelmode" => "walking"))
 end
 
-export get_site, get_json
+export get_site, get_json, to_df
 
 end # module Free2Pee

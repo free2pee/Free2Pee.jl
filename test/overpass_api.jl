@@ -34,11 +34,11 @@ end
         push!(atags, atag)
     end
     
-    view_df = df[:, [:id, :distance, :lat, :lon, :maps_url]]
+    view_df = df[:, [:id, :distance, :time_distance, :lat, :lon, :maps_url]]
     view_df.maps_url = atags
     view_df.id = node_atags
 
-    sort!(view_df, :distance)
+    sort!(view_df, :time_distance)
     io = IOBuffer()
     pretty_table(io, view_df, nosubheader=true, backend=Val(:html); allow_html_in_cells=true)
 
