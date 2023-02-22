@@ -25,55 +25,56 @@ function lat_long_pair(n)
     return (n["lat"], n["lon"])
 end
 
-function gen_query(lat, lon)
+function gen_query(lat, lon; radius=1000)
     """
     [out:json];
     (
-        node(around:1000, $lat, $lon)["amenity"="toilets"];
-        node(around:1000, $lat, $lon)["toilets:position"="seated"];
-        node(around:1000, $lat, $lon)["toilets:position"="urinal"];
-        node(around:1000, $lat, $lon)["toilets:position"="squat"];
-        node(around:1000, $lat, $lon)["toilets:position"="seated;urinal"];
-        node(around:1000, $lat, $lon)["changing_table"="yes"];
-        node(around:1000, $lat, $lon)["changing_table"="no"];
-        node(around:1000, $lat, $lon)["changing_table:location"];
-        node(around:1000, $lat, $lon)["changing_table:location"="female_toilet"];
-        node(around:1000, $lat, $lon)["changing_table:location"="male_toilet"];
-        node(around:1000, $lat, $lon)["changing_table:location"="wheelchair_toilet"];
-        node(around:1000, $lat, $lon)["changing_table:location"="dedicated_room"];
-        node(around:1000, $lat, $lon)["toilets:handwashing"="yes"];
-        node(around:1000, $lat, $lon)["toilets:handwashing"="no"];
-        node(around:1000, $lat, $lon)["toilets:paper_supplied"="yes"];
-        node(around:1000, $lat, $lon)["toilets:paper_supplied"="no"];
-        node(around:1000, $lat, $lon)["toilets"="yes"];
-        node(around:1000, $lat, $lon)["toilets:access"];
-        node(around:1000, $lat, $lon)["toilets:fee"="yes"];
-        node(around:1000, $lat, $lon)["toilets:fee"="no"];
-        node(around:1000, $lat, $lon)["toilets:charge"];
-        node(around:1000, $lat, $lon)["toilets:wheelchair"="yes"];
-        node(around:1000, $lat, $lon)["toilets:wheelchair"="no"];
-        node(around:1000, $lat, $lon)["toilets:wheelchair"="designated"];
-        node(around:1000, $lat, $lon)["toilets:door:width"];
-        node(around:1000, $lat, $lon)["toilets:position"="seated"];
-        node(around:1000, $lat, $lon)["toilets:position"="urinal"];
-        node(around:1000, $lat, $lon)["toilets:position"="squat"];
-        node(around:1000, $lat, $lon)["toilets:position"="seated;urinal"];
-        node(around:1000, $lat, $lon)["changing_table"="yes"];
-        node(around:1000, $lat, $lon)["changing_table"="no"];
-        node(around:1000, $lat, $lon)["changing_table:location"];
-        node(around:1000, $lat, $lon)["changing_table:location"="female_toilet"];
-        node(around:1000, $lat, $lon)["changing_table:location"="male_toilet"];
-        node(around:1000, $lat, $lon)["changing_table:location"="wheelchair_toilet"];
-        node(around:1000, $lat, $lon)["changing_table:location"="dedicated_room"];
-        node(around:1000, $lat, $lon)["toilets:handwashing"="yes"];
-        node(around:1000, $lat, $lon)["toilets:handwashing"="no"];
-        node(around:1000, $lat, $lon)["toilets:paper_supplied"="yes"];
-        node(around:1000, $lat, $lon)["toilets:paper_supplied"="no"];
-        node(around:1000, $lat, $lon)["toilets:description"];
+        node(around:$radius, $lat, $lon)["amenity"="toilets"];
+        node(around:$radius, $lat, $lon)["toilets:position"="seated"];
+        node(around:$radius, $lat, $lon)["toilets:position"="urinal"];
+        node(around:$radius, $lat, $lon)["toilets:position"="squat"];
+        node(around:$radius, $lat, $lon)["toilets:position"="seated;urinal"];
+        node(around:$radius, $lat, $lon)["changing_table"="yes"];
+        node(around:$radius, $lat, $lon)["changing_table"="no"];
+        node(around:$radius, $lat, $lon)["changing_table:location"];
+        node(around:$radius, $lat, $lon)["changing_table:location"="female_toilet"];
+        node(around:$radius, $lat, $lon)["changing_table:location"="male_toilet"];
+        node(around:$radius, $lat, $lon)["changing_table:location"="wheelchair_toilet"];
+        node(around:$radius, $lat, $lon)["changing_table:location"="dedicated_room"];
+        node(around:$radius, $lat, $lon)["toilets:handwashing"="yes"];
+        node(around:$radius, $lat, $lon)["toilets:handwashing"="no"];
+        node(around:$radius, $lat, $lon)["toilets:paper_supplied"="yes"];
+        node(around:$radius, $lat, $lon)["toilets:paper_supplied"="no"];
+        node(around:$radius, $lat, $lon)["toilets"="yes"];
+        node(around:$radius, $lat, $lon)["toilets:access"];
+        node(around:$radius, $lat, $lon)["toilets:fee"="yes"];
+        node(around:$radius, $lat, $lon)["toilets:fee"="no"];
+        node(around:$radius, $lat, $lon)["toilets:charge"];
+        node(around:$radius, $lat, $lon)["toilets:wheelchair"="yes"];
+        node(around:$radius, $lat, $lon)["toilets:wheelchair"="no"];
+        node(around:$radius, $lat, $lon)["toilets:wheelchair"="designated"];
+        node(around:$radius, $lat, $lon)["toilets:door:width"];
+        node(around:$radius, $lat, $lon)["toilets:position"="seated"];
+        node(around:$radius, $lat, $lon)["toilets:position"="urinal"];
+        node(around:$radius, $lat, $lon)["toilets:position"="squat"];
+        node(around:$radius, $lat, $lon)["toilets:position"="seated;urinal"];
+        node(around:$radius, $lat, $lon)["changing_table"="yes"];
+        node(around:$radius, $lat, $lon)["changing_table"="no"];
+        node(around:$radius, $lat, $lon)["changing_table:location"];
+        node(around:$radius, $lat, $lon)["changing_table:location"="female_toilet"];
+        node(around:$radius, $lat, $lon)["changing_table:location"="male_toilet"];
+        node(around:$radius, $lat, $lon)["changing_table:location"="wheelchair_toilet"];
+        node(around:$radius, $lat, $lon)["changing_table:location"="dedicated_room"];
+        node(around:$radius, $lat, $lon)["toilets:handwashing"="yes"];
+        node(around:$radius, $lat, $lon)["toilets:handwashing"="no"];
+        node(around:$radius, $lat, $lon)["toilets:paper_supplied"="yes"];
+        node(around:$radius, $lat, $lon)["toilets:paper_supplied"="no"];
+        node(around:$radius, $lat, $lon)["toilets:description"];
     );
     out;
     """
 end
+
 
 function walking_time_distance(ps, lat_lon)
     lat = lat_lon[1]
@@ -89,8 +90,8 @@ function walking_time_distance(ps, lat_lon)
     return j.durations[1][2:end]
 end
 
-function to_df(lat, lon)
-    query = gen_query(lat, lon)
+function to_df(lat, lon; radius=1000)
+    query = gen_query(lat, lon; radius)
     response = HTTP.post(OVERPASS_URL, nothing, query)
     j = JSON3.read(response.body)
     es = j.elements
