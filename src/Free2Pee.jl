@@ -1,6 +1,6 @@
 module Free2Pee
 using JSON3, Downloads
-using Oxygen, JSON3, Downloads, CSV, DataFrames, JSONTables, PrettyTables, HTTP, URIs, Distances
+using Oxygen, JSON3, Downloads, CSV, DataFrames, JSONTables, PrettyTables, HTTP, URIs, Distances, Dates
 
 const LAT = 42.35810736568732
 const LON = -71.10592447014132
@@ -8,6 +8,16 @@ lat = LAT
 lon = LON
 const OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 const MAPS_URI = URI("https://www.google.com/maps/dir/")
+
+# CODE_DF = DataFrame(
+#     id = Int[],
+#     code = String[],
+#     timestamp = DateTime[],
+#     ply_count = Int[]
+# )
+DATABASE_PATH = joinpath(@__DIR__, "../data/database.csv")
+# CSV.write(DATABASE_PATH, CODE_DF)
+CODE_DF = CSV.read(DATABASE_PATH, DataFrame)
 
 get_site(url) = take!(Downloads.download(url, IOBuffer()))
 get_json(url) = JSON3.read(get_site(url))
@@ -139,5 +149,6 @@ function generate_google_api_url(origin_lat, origin_long, dest_lat, dest_long)
 end
 
 export get_site, get_json, to_df
+export CODE_DF
 
 end # module Free2Pee
