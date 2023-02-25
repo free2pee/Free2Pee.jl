@@ -58,12 +58,9 @@ however, the latest osrm docs have a nice matrix/table interface that seems to n
 
 """
 route_url = "http://router.project-osrm.org/table/v1/driving/-71.105650,42.363740;-71.106120,42.358030"
-foot_url  = "https://routing.openstreetmap.de/routed-foot/route/v1/driving/-71.1056,42.3637;-71.1061,42.3581;-71.1056,42.3637;-71.091430,42.359760;-71.1056,42.3637;-71.104770,42.369880"
-foot_url_with_steps = "https://routing.openstreetmap.de/routed-foot/route/v1/driving/-71.1056,42.3637;-71.1061,42.3581?overview=false&geometries=polyline&steps=true"
-response = HTTP.post(foot_url)
+response = HTTP.post(route_url)
 j = JSON3.read(response.body)
 j.routes[1].duration #this is the time (in seconds) it takes to go from the first lat/long pair to the second lat/long pair
 
 
-res = to_df(lat, lon)
-res.time_distance
+
