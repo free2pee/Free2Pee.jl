@@ -4,3 +4,4 @@ key.txt
 Manifest.toml
 .vscode/
 data/luxembourg.osm
+test/logs/
