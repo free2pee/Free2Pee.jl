@@ -75,8 +75,7 @@ function gen_query(lat, lon; radius=1000)
     """
 end
 
-
-function walking_time_distance(ps, lat_lon)
+function driving_time_distance(ps, lat_lon)
     lat = lat_lon[1]
     lon = lat_lon[2]
     route_url = "http://router.project-osrm.org/table/v1/foot/$lon,$lat"
@@ -88,6 +87,24 @@ function walking_time_distance(ps, lat_lon)
     response = HTTP.post(route_url)
     j = JSON3.read(response.body)
     return j.durations[1][2:end]
+end
+
+
+function walking_time_distance(ps, lat_lon)
+    lat = lat_lon[1]
+    lon = lat_lon[2]
+    route_url  = "https://routing.openstreetmap.de/routed-foot/route/v1/driving/"
+    # make_coords(my_coords, ps)
+    # join("mylat,mylon" * join(ps[1], ",")), ";"
+    for p in ps
+        lat_dest = p[1]
+        lon_dest = p[2]
+        route_url = route_url*"$lon,$lat;"
+        route_url = route_url*"$lon_dest,$lat_dest;"
+    end
+    response = HTTP.post(route_url[1:end-1])
+    j = JSON3.read(response.body)
+    return [j.routes[1].legs[i].duration for i in 1:2:length(j.routes[1].legs)]
 end
 
 function to_df(lat, lon; radius=1000)
