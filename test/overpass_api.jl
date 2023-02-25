@@ -1,5 +1,5 @@
 using Free2Pee
-using Oxygen, JSON3, Downloads, CSV, DataFrames, JSONTables, PrettyTables, HTTP, URIs, Distances, Dates
+using Oxygen, JSON3, Downloads, CSV, DataFrames, JSONTables, PrettyTables, HTTP, URIs, Dates
 @info "usings"
 
 const LAT = 42.35810736568732

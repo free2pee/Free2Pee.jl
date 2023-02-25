@@ -1,6 +1,6 @@
 module Free2Pee
 using JSON3, Downloads
-using Oxygen, JSON3, Downloads, CSV, DataFrames, JSONTables, PrettyTables, HTTP, URIs, Distances, Dates
+using Oxygen, JSON3, Downloads, CSV, DataFrames, JSONTables, PrettyTables, HTTP, URIs, Dates
 
 const LAT = 42.35810736568732
 const LON = -71.10592447014132
