@@ -5,7 +5,6 @@ using Distances
 
 using Free2Pee
 
-#fkdfj
 # lat = 42.3640906
 # lon = -71.1018806
 const LAT = 42.35810736568732
